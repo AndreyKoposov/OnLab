@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from OnLab.gigachat import GigaEngine
 from OnLab.preprocessor import Preprocessor
@@ -22,7 +22,10 @@ async def get_entities(prompt: str):
     """AI Query"""
     raw = ai.invoke(prompt)
     res = pr.preprocess(raw)
-    entities = res["entities"]
+    entities = res.get("entities", None)
+
+    if not entities:
+        raise HTTPException(status_code=500, detail="Error in JSON!")
 
     return AIResponse(content=entities)
 
@@ -31,7 +34,10 @@ async def get_stages(prompt: str):
     """AI Query"""
     raw = ai.invoke(prompt)
     res = pr.preprocess(raw)
-    stages = res['stages']
+    stages = res.get('stages', None)
+
+    if not stages:
+        raise HTTPException(status_code=500, detail="Error in JSON!")
 
     return AIResponse(content=stages)
 
@@ -40,7 +46,10 @@ async def get_transitions(prompt: str):
     """AI Query"""
     raw = ai.invoke(prompt)
     res = pr.preprocess(raw)
-    transitions = res['transitions']
+    transitions = res.get('transitions', None)
+
+    if not transitions:
+        raise HTTPException(status_code=500, detail="Error in JSON!")
 
     return AIResponse(content=transitions)
 
@@ -49,6 +58,9 @@ async def get_params(prompt: str):
     """AI Query"""
     raw = ai.invoke(prompt)
     res = pr.preprocess(raw)
-    params = res['stages_params']
+    params = res.get('stages_params', None)
+
+    if not params:
+        raise HTTPException(status_code=500, detail="Error in JSON!")
 
     return AIResponse(content=params)

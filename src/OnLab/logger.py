@@ -1,14 +1,15 @@
 """logging"""
 from logging import getLogger, DEBUG, Formatter
 from logging.handlers import RotatingFileHandler
+from OnLab.config import ROOT, ENV
 
 
 class Logger():
-    """Класс, отвечающий за логгирование"""
+    """Класс для логгирование"""
     logger = getLogger(__name__)
 
     @staticmethod
-    def start(path: str) -> None:
+    def start() -> None:
         """Запускает работу логгера"""
         Logger.logger.setLevel(DEBUG)
 
@@ -17,7 +18,7 @@ class Logger():
             datefmt='%Y-%m-%d %H:%M:%S'
         )
         file_handler = RotatingFileHandler(
-            path + 'logs\\app.log',
+            ROOT/'logs\\app.log',
             maxBytes=1024*1024,
             encoding='utf-8'
         )
@@ -29,10 +30,11 @@ class Logger():
 
     @staticmethod
     def info(msg):
-        """Log inof message"""
-        Logger.logger.info(msg)
+        """Log info message"""
+        if ENV.DEBUG:
+            Logger.logger.info(msg)
 
     @staticmethod
     def error(msg):
-        """Log inof message"""
+        """Log info message"""
         Logger.logger.error(msg)
