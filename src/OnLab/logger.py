@@ -3,14 +3,14 @@ from logging import getLogger, DEBUG, Formatter
 from logging.handlers import RotatingFileHandler
 
 
-class LogManager():
+class Logger():
     """Класс, отвечающий за логгирование"""
     logger = getLogger(__name__)
 
     @staticmethod
     def start(path: str) -> None:
         """Запускает работу логгера"""
-        LogManager.logger.setLevel(DEBUG)
+        Logger.logger.setLevel(DEBUG)
 
         formatter = Formatter(
             '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -24,15 +24,15 @@ class LogManager():
         file_handler.setLevel(DEBUG)
         file_handler.setFormatter(formatter)
 
-        LogManager.logger.addHandler(file_handler)
-        LogManager.logger.info('Started')
+        Logger.logger.addHandler(file_handler)
+        Logger.logger.info('Started')
 
     @staticmethod
     def info(msg):
         """Log inof message"""
-        LogManager.logger.info(msg)
+        Logger.logger.info(msg)
 
     @staticmethod
     def error(msg):
         """Log inof message"""
-        LogManager.logger.error(msg)
+        Logger.logger.error(msg)
