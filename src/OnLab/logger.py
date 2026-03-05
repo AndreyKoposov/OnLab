@@ -37,4 +37,5 @@ class Logger():
     @staticmethod
     def error(msg):
         """Log info message"""
-        Logger.logger.error(msg)
+        if ENV.DEBUG:
+            Logger.logger.error(msg)

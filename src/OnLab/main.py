@@ -1,7 +1,15 @@
 from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 from OnLab.routes import router as api_router
+from OnLab.logger import Logger
+from OnLab.config import ENV, ROOT
 
+
+if ENV.DEBUG:
+    print("STARTED IN DEBUG FORMAT")
+    Logger.start()
+else:
+    print("STARTED IN PRODUCTION FORMAT")
 
 app = FastAPI(title="Ontology Lab")
 app.add_middleware(
@@ -17,6 +25,8 @@ app.include_router(api_router, prefix="/api")
 async def ping_head():
     """HEAD запросы"""
     return Response(status_code=200)
+
+Logger.info("started")
 
 
 

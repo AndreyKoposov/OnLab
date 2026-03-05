@@ -1,10 +1,11 @@
+from os import getenv
 from typing import Literal
 from pathlib import Path
 from pydantic import SecretStr, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-ROOT = Path.cwd().parent.parent
+ROOT = Path.cwd()
 
 class Settings(BaseSettings):
     """Загрузка переменных среды"""
@@ -23,5 +24,26 @@ class Settings(BaseSettings):
         case_sensitive=True,
         extra="ignore"
     )
+
+    @property
+    def get_model(self):
+        "GET MODEL"
+        if self.DEBUG:
+            return self.AI_MODEL
+        return getenv("AI_MODEL")
+
+    @property
+    def get_api_key(self):
+        "GET MODEL"
+        if self.DEBUG:
+            return self.AI_API_KEY.get_secret_value()
+        return getenv("AI_API_KEY")
+
+    @property
+    def get_temp(self):
+        "GET MODEL"
+        if self.DEBUG:
+            return self.AI_TEMP
+        return getenv("AI_TEMP")
 
 ENV = Settings()

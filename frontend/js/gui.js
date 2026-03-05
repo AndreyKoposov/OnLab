@@ -83,23 +83,26 @@ function initGUI() {
         setActiveButton(btn1);
         updateContent(1);
 
-        fetch(url)
-            .then((response) => response.json())
-            .then((json) => alert(json["status"]));
+        prompt_test = `Фотолитография — метод получения рисунка на поверхности материала.
+                На подложку наносится фоторезист, который засвечивается через фотошаблон,
+                проявляется, а затем используется для травления или напыления. Фотолитография
+                начинается с нанесения фоторезиста на подложку. Затем происходит засвечивание
+                через фотошаблон, проявление и использование для травления или напыления.`
+        const params = new URLSearchParams({ prompt: prompt_test });
+        fetch(`http://localhost:8080/api/entities?${params}`)
+            .then(response => response.json())
+            .then(data => alert(data))
+            .catch(error => console.error('Error:', error));
     });
 
     btn2.addEventListener('click', function(e) {
         setActiveButton(btn2);
         updateContent(2);
-
-        setConnectionStatus(false)
     });
 
     btn3.addEventListener('click', function(e) {
         setActiveButton(btn3);
         updateContent(3);
-
-        setConnectionStatus(true)
     });
 
     btn4.addEventListener('click', function(e) {

@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+from urllib.parse import unquote
 from OnLab.gigachat import GigaEngine
 from OnLab.preprocessor import Preprocessor
 
@@ -17,10 +18,16 @@ async def status_check():
     """Check server status"""
     return {"status": "ok"}
 
+@router.get("/hello")
+async def hello():
+    """Check gigachat status"""
+    raw = [ai.invoke("Поприветствуй пользователя в научном стиле")]
+    return AIResponse(content=raw)
+
 @router.get("/entities", response_model=AIResponse)
 async def get_entities(prompt: str):
     """AI Query"""
-    raw = ai.invoke(prompt)
+    raw = ai.invoke(unquote(prompt))
     res = pr.preprocess(raw)
     entities = res.get("entities", None)
 
