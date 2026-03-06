@@ -83,16 +83,34 @@ function initGUI() {
         setActiveButton(btn1);
         updateContent(1);
 
-        prompt_test = `Фотолитография — метод получения рисунка на поверхности материала.
+        prompt_test = `Процесс:
+                Фотолитография — метод получения рисунка на поверхности материала.
                 На подложку наносится фоторезист, который засвечивается через фотошаблон,
                 проявляется, а затем используется для травления или напыления. Фотолитография
                 начинается с нанесения фоторезиста на подложку. Затем происходит засвечивание
-                через фотошаблон, проявление и использование для травления или напыления.`
-        const params = new URLSearchParams({ prompt: prompt_test });
-        fetch(`http://localhost:8080/api/entities?${params}`)
-            .then(response => response.json())
-            .then(data => alert(data))
-            .catch(error => console.error('Error:', error));
+                через фотошаблон, проявление и использование для травления или напыления.
+                
+                ## Задание
+                Выдели основные сущности описанного процесса и верни их в виде JSON строго по шаблону:
+                {
+                    entities: [
+                        "entity_name_1",
+                        "entity_name_2",
+                    ]
+                }
+                `
+        fetch(`http://localhost:8000/api/entities`, 
+            {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ prompt: prompt_test }),
+            }
+        )
+        .then(response => response.json())
+        .then(data => alert(data["content"]))
+        .catch(error => console.error('Error:', error));
     });
 
     btn2.addEventListener('click', function(e) {
