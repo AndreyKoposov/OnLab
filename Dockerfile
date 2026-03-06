@@ -53,7 +53,7 @@ USER appuser
 COPY . .
 
 # Expose the port that the application listens on.
-EXPOSE 8080
+EXPOSE 8000
 
 # Run the application.
-CMD ["uvicorn", "src.OnLab.main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["gunicorn", "src.OnLab.main:app", "--workers", "1", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000"]

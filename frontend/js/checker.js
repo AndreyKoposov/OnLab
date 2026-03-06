@@ -1,5 +1,5 @@
 function startChecker() {
-    var url = "http://localhost:8080/ping"
+    var url = "http://localhost:8000/ping"
     // Запуск проверки соединения
     const connectionChecker = checkServerConnection(url);
     // Устанавливаем обработчики событий

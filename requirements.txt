@@ -29,6 +29,8 @@ fastapi==0.135.1
     # via -r requirements.in
 gigachat==0.1.43
     # via langchain-gigachat
+gunicorn==21.2.0
+    # via -r requirements.in
 h11==0.16.0
     # via
     #   httpcore
@@ -58,6 +60,7 @@ orjson==3.11.7
     # via langsmith
 packaging==25.0
     # via
+    #   gunicorn
     #   langchain-core
     #   langsmith
 pydantic==2.12.5

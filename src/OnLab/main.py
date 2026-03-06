@@ -2,7 +2,7 @@ from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 from OnLab.routes import router as api_router
 from OnLab.logger import Logger
-from OnLab.config import ENV, ROOT
+from OnLab.config import ENV
 
 
 if ENV.DEBUG:
