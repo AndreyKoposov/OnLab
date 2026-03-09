@@ -10,7 +10,7 @@ pr = Preprocessor()
 
 class AIResponse(BaseModel):
     """Response template"""
-    content: list
+    content: list | dict
 
 class AIRequest(BaseModel):
     """Response template"""
