@@ -34,7 +34,7 @@ class Preprocessor():
         return text
 
     def __remove_whitespaces(self, text: str) -> str:
-        return "".join(text.split())
+        return text.replace("\n", '')
 
     def __try_parse(self, text: str) -> dict:
         actions = {}
