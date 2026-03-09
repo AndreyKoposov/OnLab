@@ -1,4 +1,0 @@
-(function() {
-    startChecker()
-    initGUI()
-})();
