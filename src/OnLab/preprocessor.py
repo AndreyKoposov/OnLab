@@ -19,7 +19,11 @@ class Preprocessor():
 
     def __select_json(self, text: str) -> str:
         start = text.find('{')
-        end = text.find('}')
+        end = start
+        for i in range(len(text) - 1, -1, -1):
+            if text[i] == '}':
+                end = i
+                break
 
         return text[start:end+1]
 
